@@ -1,0 +1,51 @@
+gcc "/mnt/c/Users/Asus/Desktop/OS PBL/os_lab_toolkit.c" -o os_lab_toolkit && ./os_lab_toolkit
+
+gcc "/mnt/c/Users/Asus/Desktop/OS PBL/tcp_server.c" -o server
+./server
+
+gcc "/mnt/c/Users/Asus/Desktop/OS PBL/tcp_client.c" -o client
+./client 127.0.0.1
+
+python3 "/mnt/c/Users/Asus/Desktop/OS PBL/app.py"
+
+ls
+pwd
+whoami
+date
+echo Hello World
+sleep 3
+sleep 3&
+cat 
+ps
+ls -l | grep .txt
+cat < my_test_file.txt
+
+cp -r /mnt/c/Users/Asus/Desktop/OS\ PBL/* ~/unishell/
+
+ls
+
+cd ~/unishell
+
+gcc os_lab_toolkit.c -o os_lab_toolkit
+gcc tcp_server.c -o tcp_server
+gcc tcp_client.c -o tcp_client
+
+
+./tcp_server
+
+cd ~/unishell
+
+python3 -m venv venv
+source venv/bin/activate
+
+python app.py (agar nahi chala toh pip install flask)
+
+
+
+
+lt --port 5002 --no-auth(ye use mat karna)
+
+#lt --port 5002 --subdomain shrutisos --no-auth
+
+
+https://loca.lt/mytunnelpassword
