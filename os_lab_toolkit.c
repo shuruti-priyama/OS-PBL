@@ -11,14 +11,10 @@
 #define MAX_ARGS 100
 #define BUFFER_SIZE 4096
 
-/* ======================== SIGNAL HANDLER ======================== */
-
 void sigint_handler(int sig) {
     printf("\n(Ctrl+C) Type 'exit' to quit.\n$ ");
     fflush(stdout);
 }
-
-/* ======================== PARSING ======================== */
 
 int parse_command(char *line, char **args, int *background) {
     *background = 0;
@@ -42,8 +38,6 @@ int parse_command(char *line, char **args, int *background) {
     return i;
 }
 
-/* ======================== REDIRECTION ======================== */
-
 void handle_redirection(char **args) {
     for (int i = 0; args[i] != NULL; i++) {
         if (strcmp(args[i], ">") == 0) {
@@ -63,8 +57,6 @@ void handle_redirection(char **args) {
     }
 }
 
-/* ======================== LOCAL EXECUTION ======================== */
-
 void execute_local(char **args, int background) {
     pid_t pid = fork();
     if (pid < 0) { perror("fork"); return; }
@@ -81,8 +73,6 @@ void execute_local(char **args, int background) {
         else printf("[Background PID: %d]\n", pid);
     }
 }
-
-/* ======================== PIPES ======================== */
 
 void execute_piped(char *line) {
     char *cmd1 = strtok(line, "|");
@@ -133,8 +123,6 @@ void execute_piped(char *line) {
     waitpid(p2, NULL, 0);
 }
 
-/* ======================== REMOTE MODE ======================== */
-
 int connect_server(const char *ip, int port) {
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) { perror("socket"); return -1; }
@@ -168,8 +156,6 @@ void remote_exec(int sock, char *cmd) {
             break;
     }
 }
-
-/* ======================== MAIN SHELL ======================== */
 
 int main() {
     signal(SIGINT, sigint_handler);

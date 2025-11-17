@@ -5,7 +5,6 @@ import os
 
 app = Flask(__name__)
 
-# ---------------- CONFIG ---------------- #
 LOCAL_SHELL = "./os_lab_toolkit"
 
 REMOTE_IP = "192.168.0.125"
@@ -13,16 +12,12 @@ REMOTE_PORT = 8080
 USERNAME = b"user"
 PASSWORD = b"pass123"
 
-
-# ---------------- SAFE JSON ---------------- #
 def safe_get_json(req):
     try:
         return req.get_json(force=True, silent=True)
     except:
         return None
 
-
-# ---------------- REMOTE HELPERS ---------------- #
 def recv_until(sock, marker=b"---END---"):
     data = b""
     while marker not in data:
@@ -32,8 +27,6 @@ def recv_until(sock, marker=b"---END---"):
         data += chunk
     return data
 
-
-# ---------------- EXECUTE REMOTE ---------------- #
 def execute_remote_command(cmd):
     try:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -63,8 +56,6 @@ def execute_remote_command(cmd):
     except Exception as e:
         return {"status": "error", "output": f"Remote error: {str(e)}"}
 
-
-# ---------------- EXECUTE LOCAL (C SHELL) ---------------- #
 def execute_local_command(cmd):
     try:
         if not os.path.exists(LOCAL_SHELL):
@@ -99,8 +90,6 @@ def execute_local_command(cmd):
     except Exception as e:
         return {"status": "error", "output": f"Local error: {str(e)}"}
 
-
-# ---------------- ROUTES ---------------- #
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -124,7 +113,5 @@ def execute():
 
     return jsonify(result)
 
-
-# ---------------- MAIN ---------------- #
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5002, debug=False)

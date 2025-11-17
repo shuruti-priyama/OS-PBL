@@ -121,10 +121,8 @@ async function sendCommand() {
     cmdInput.value = "";
 }
 
-// Button click
 sendBtn.addEventListener("click", sendCommand);
 
-// Enter key
 cmdInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") sendCommand();
 });
